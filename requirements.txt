@@ -1,0 +1,8 @@
+fastapi
+requests
+psycopg2
+psycopg2-binary
+pydantic
+python-jose
+passlib
+python-multipart
