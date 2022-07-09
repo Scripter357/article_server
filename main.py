@@ -271,7 +271,7 @@ async def assign_role(inputForm: RoleChangeForm, current_user: User = Depends(ge
 	return {username:current_user.username}
 
 @app.post("/user/unassign_role", status_code=status.HTTP_202_ACCEPTED)
-async def assign_role(inputForm: RoleChangeForm, current_user: User = Depends(get_current_active_user)):
+async def unassign_role(inputForm: RoleChangeForm, current_user: User = Depends(get_current_active_user)):
 	if not "Admin" in current_user.roles:
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
@@ -294,7 +294,7 @@ async def assign_role(inputForm: RoleChangeForm, current_user: User = Depends(ge
 
 
 @app.post("/user/delete", status_code=status.HTTP_202_ACCEPTED)
-async def assign_role(inputForm: UsernameOnly, current_user: User = Depends(get_current_active_user)):
+async def delete_user(inputForm: UsernameOnly, current_user: User = Depends(get_current_active_user)):
 	if not "Admin" in current_user.roles:
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
@@ -315,7 +315,7 @@ async def assign_role(inputForm: UsernameOnly, current_user: User = Depends(get_
 
 
 @app.post("/user/ban", status_code=status.HTTP_202_ACCEPTED)
-async def assign_role(inputForm: UsernameOnly, current_user: User = Depends(get_current_active_user)):
+async def ban_user(inputForm: UsernameOnly, current_user: User = Depends(get_current_active_user)):
 	if not ("Admin" in current_user.roles or "Moderator" in current_user.roles):
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
@@ -335,7 +335,7 @@ async def assign_role(inputForm: UsernameOnly, current_user: User = Depends(get_
 	return {username:current_user.username}
 
 @app.post("/user/unban", status_code=status.HTTP_202_ACCEPTED)
-async def assign_role(inputForm: UsernameOnly, current_user: User = Depends(get_current_active_user)):
+async def unban_user(inputForm: UsernameOnly, current_user: User = Depends(get_current_active_user)):
 	if not ("Admin" in current_user.roles or "Moderator" in current_user.roles):
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
@@ -356,7 +356,7 @@ async def assign_role(inputForm: UsernameOnly, current_user: User = Depends(get_
 
 
 @app.get("/user/list", status_code=status.HTTP_202_ACCEPTED)
-async def assign_role(current_user: User = Depends(get_current_active_user)):
+async def list_users(current_user: User = Depends(get_current_active_user)):
 	users = []
 	cursor.execute(f"SELECT uid, username, ban FROM public.users")
 	result = list(cursor.fetchall())
@@ -371,7 +371,7 @@ async def assign_role(current_user: User = Depends(get_current_active_user)):
 
 
 @app.post("/article/create", status_code=status.HTTP_202_ACCEPTED)
-async def assign_role(inputForm: NewArticle, current_user: User = Depends(get_current_active_user)):
+async def create_article(inputForm: NewArticle, current_user: User = Depends(get_current_active_user)):
 	if not ("Admin" in current_user.roles or "Author" in current_user.roles):
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
@@ -392,7 +392,7 @@ async def assign_role(inputForm: NewArticle, current_user: User = Depends(get_cu
 	return {"username":current_user.username}
 
 @app.post("/article/save", status_code=status.HTTP_202_ACCEPTED)
-async def assign_role(inputForm: Article, current_user: User = Depends(get_current_active_user)):
+async def save_article(inputForm: Article, current_user: User = Depends(get_current_active_user)):
 	if not ("Admin" in current_user.roles or "Author" in current_user.roles):
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
@@ -415,7 +415,7 @@ async def assign_role(inputForm: Article, current_user: User = Depends(get_curre
 	return {"username":current_user.username}
 
 @app.post("/article/delete", status_code=status.HTTP_202_ACCEPTED)
-async def assign_role(inputForm: ArticleId, current_user: User = Depends(get_current_active_user)):
+async def delete_article(inputForm: ArticleId, current_user: User = Depends(get_current_active_user)):
 	if not ("Admin" in current_user.roles or "Author" in current_user.roles):
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
@@ -434,7 +434,7 @@ async def assign_role(inputForm: ArticleId, current_user: User = Depends(get_cur
 	return {"username":current_user.username}
 
 @app.post("/article/send_for_approval", status_code=status.HTTP_202_ACCEPTED)
-async def assign_role(inputForm: ArticleId, current_user: User = Depends(get_current_active_user)):
+async def send_article_for_approval(inputForm: ArticleId, current_user: User = Depends(get_current_active_user)):
 	if not ("Admin" in current_user.roles or "Author" in current_user.roles):
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
@@ -457,7 +457,7 @@ async def assign_role(inputForm: ArticleId, current_user: User = Depends(get_cur
 	return {"username":current_user.username}
 
 @app.post("/article/draft", status_code=status.HTTP_202_ACCEPTED)
-async def assign_role(inputForm: ArticleId, current_user: User = Depends(get_current_active_user)):
+async def draft_article(inputForm: ArticleId, current_user: User = Depends(get_current_active_user)):
 	if not ("Admin" in current_user.roles or "Author" in current_user.roles):
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
@@ -480,7 +480,7 @@ async def assign_role(inputForm: ArticleId, current_user: User = Depends(get_cur
 	return {"username":current_user.username}
 
 @app.post("/article/approve", status_code=status.HTTP_202_ACCEPTED)
-async def assign_role(inputForm: ArticleId, current_user: User = Depends(get_current_active_user)):
+async def approve_article(inputForm: ArticleId, current_user: User = Depends(get_current_active_user)):
 	if not ("Admin" in current_user.roles or "Moderator" in current_user.roles):
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
@@ -498,7 +498,7 @@ async def assign_role(inputForm: ArticleId, current_user: User = Depends(get_cur
 
 
 @app.post("/article/deny", status_code=status.HTTP_202_ACCEPTED)
-async def assign_role(inputForm: ArticleId, current_user: User = Depends(get_current_active_user)):
+async def deny_article(inputForm: ArticleId, current_user: User = Depends(get_current_active_user)):
 	if not ("Admin" in current_user.roles or "Moderator" in current_user.roles):
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
@@ -516,7 +516,7 @@ async def assign_role(inputForm: ArticleId, current_user: User = Depends(get_cur
 
 
 @app.post("/article/add_coauthor", status_code=status.HTTP_202_ACCEPTED)
-async def assign_role(inputForm: ArticleUserPair, current_user: User = Depends(get_current_active_user)):
+async def add_coathor(inputForm: ArticleUserPair, current_user: User = Depends(get_current_active_user)):
 	if not ("Admin" in current_user.roles or "Author" in current_user.roles):
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
@@ -544,7 +544,7 @@ async def assign_role(inputForm: ArticleUserPair, current_user: User = Depends(g
 	return {"username":current_user.username}
 
 @app.post("/article/remove_coauthor", status_code=status.HTTP_202_ACCEPTED)
-async def assign_role(inputForm: ArticleUserPair, current_user: User = Depends(get_current_active_user)):
+async def remove_couathor(inputForm: ArticleUserPair, current_user: User = Depends(get_current_active_user)):
 	if not ("Admin" in current_user.roles or "Author" in current_user.roles):
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
@@ -573,7 +573,7 @@ async def assign_role(inputForm: ArticleUserPair, current_user: User = Depends(g
 
 
 @app.post("/article/add_comment", status_code=status.HTTP_202_ACCEPTED)
-async def assign_role(inputForm: ArticleComment, current_user: User = Depends(get_current_active_user)):
+async def add_comment(inputForm: ArticleComment, current_user: User = Depends(get_current_active_user)):
 	if not ("Admin" in current_user.roles or "Reader" in current_user.roles):
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
@@ -595,7 +595,7 @@ async def assign_role(inputForm: ArticleComment, current_user: User = Depends(ge
 	return {"username":current_user.username}
 
 @app.post("/article/remove_comment", status_code=status.HTTP_202_ACCEPTED)
-async def assign_role(inputForm: ArticleCommentId, current_user: User = Depends(get_current_active_user)):
+async def remove_comment(inputForm: ArticleCommentId, current_user: User = Depends(get_current_active_user)):
 	if not ("Admin" in current_user.roles or "Moderator" in current_user.roles):
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
@@ -622,7 +622,7 @@ async def assign_role(inputForm: ArticleCommentId, current_user: User = Depends(
 
 
 @app.post("/article/view", status_code=status.HTTP_202_ACCEPTED)
-async def assign_role(inputForm: ArticleId, current_user: User = Depends(get_current_active_user)):
+async def view_article(inputForm: ArticleId, current_user: User = Depends(get_current_active_user)):
 	article_id = inputForm.article_id
 	cursor.execute(f"SELECT * FROM public.articles WHERE article_id='{article_id}'")
 	result = list(cursor.fetchall())
@@ -646,7 +646,7 @@ async def assign_role(inputForm: ArticleId, current_user: User = Depends(get_cur
 	return {"article": article, "comments": comments}
 
 @app.get("/article/list", status_code=status.HTTP_202_ACCEPTED)
-async def assign_role(current_user: User = Depends(get_current_active_user)):
+async def list_articles(current_user: User = Depends(get_current_active_user)):
 	if not ("Admin" in current_user.roles):
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
@@ -667,7 +667,7 @@ async def assign_role(current_user: User = Depends(get_current_active_user)):
 	return {"articles": articles}
 
 @app.get("/article/list_newest_ten", status_code=status.HTTP_202_ACCEPTED)
-async def assign_role(current_user: User = Depends(get_current_active_user)):
+async def list_newest_articles(current_user: User = Depends(get_current_active_user)):
 	if not ("Admin" in current_user.roles or "Reader" in current_user.roles):
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
@@ -707,7 +707,7 @@ async def assign_role(current_user: User = Depends(get_current_active_user)):
 	return {"articles": send_articles, "ratings": ratings}
 
 @app.get("/article/get_pending", status_code=status.HTTP_202_ACCEPTED)
-async def assign_role(current_user: User = Depends(get_current_active_user)):
+async def list_articles_pending_approval(current_user: User = Depends(get_current_active_user)):
 	if not ("Admin" in current_user.roles):
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
@@ -728,7 +728,7 @@ async def assign_role(current_user: User = Depends(get_current_active_user)):
 	return {"articles": articles}
 
 @app.get("/article/get_authored", status_code=status.HTTP_202_ACCEPTED)
-async def assign_role(current_user: User = Depends(get_current_active_user)):
+async def list_authored_articles(current_user: User = Depends(get_current_active_user)):
 	if not ("Admin" in current_user.roles or "Author" in current_user.roles):
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
@@ -758,7 +758,7 @@ async def assign_role(current_user: User = Depends(get_current_active_user)):
 
 
 @app.post("/article/add_rating", status_code=status.HTTP_202_ACCEPTED)
-async def assign_role(inputForm: ArticleRating, current_user: User = Depends(get_current_active_user)):
+async def add_rating(inputForm: ArticleRating, current_user: User = Depends(get_current_active_user)):
 	if not ("Admin" in current_user.roles or "Reader" in current_user.roles):
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
@@ -790,7 +790,7 @@ async def assign_role(inputForm: ArticleRating, current_user: User = Depends(get
 
 
 @app.post("/topic/create", status_code=status.HTTP_202_ACCEPTED)
-async def assign_role(inputForm: Topic, current_user: User = Depends(get_current_active_user)):
+async def create_topic(inputForm: Topic, current_user: User = Depends(get_current_active_user)):
 	if not ("Admin" in current_user.roles):
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
@@ -807,7 +807,7 @@ async def assign_role(inputForm: Topic, current_user: User = Depends(get_current
 	return {"username":current_user.username}
 
 @app.post("/topic/delete", status_code=status.HTTP_202_ACCEPTED)
-async def assign_role(inputForm: Topic, current_user: User = Depends(get_current_active_user)):
+async def delete_topic(inputForm: Topic, current_user: User = Depends(get_current_active_user)):
 	if not "Admin" in current_user.roles:
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
@@ -825,7 +825,7 @@ async def assign_role(inputForm: Topic, current_user: User = Depends(get_current
 	return {"username":current_user.username}
 
 @app.post("/topic/add_article", status_code=status.HTTP_202_ACCEPTED)
-async def assign_role(inputForm: TopicArticleIds, current_user: User = Depends(get_current_active_user)):
+async def add_article_to_topic(inputForm: TopicArticleIds, current_user: User = Depends(get_current_active_user)):
 	if not ("Admin" in current_user.roles):
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
@@ -854,7 +854,7 @@ async def assign_role(inputForm: TopicArticleIds, current_user: User = Depends(g
 	return {"username":current_user.username}
 
 @app.post("/topic/remove_article", status_code=status.HTTP_202_ACCEPTED)
-async def assign_role(inputForm: TopicArticleIds, current_user: User = Depends(get_current_active_user)):
+async def remove_article_from_topic(inputForm: TopicArticleIds, current_user: User = Depends(get_current_active_user)):
 	if not ("Admin" in current_user.roles):
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
@@ -883,7 +883,7 @@ async def assign_role(inputForm: TopicArticleIds, current_user: User = Depends(g
 	return {"username":current_user.username}
 
 @app.get("/topic/list", status_code=status.HTTP_202_ACCEPTED)
-async def assign_role(current_user: User = Depends(get_current_active_user)):
+async def list_topics(current_user: User = Depends(get_current_active_user)):
 	if not ("Admin" in current_user.roles):
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED,
@@ -901,7 +901,7 @@ async def assign_role(current_user: User = Depends(get_current_active_user)):
 	return {"topics": topics}
 
 @app.post("/article/search", status_code=status.HTTP_202_ACCEPTED)
-async def assign_role(inputForm: SearchForm, current_user: User = Depends(get_current_active_user)):
+async def search_articles(inputForm: SearchForm, current_user: User = Depends(get_current_active_user)):
 	articles = []
 	cursor.execute(f"SELECT article_id, title, text, status, publish_time FROM public.articles WHERE status='Approved'")
 	result = list(cursor.fetchall())
