@@ -15,6 +15,7 @@ CREATE TABLE article_comment(
   FOREIGN KEY (article_id)
     REFERENCES articles (article_id)
 )
+
 CREATE TABLE article_ratings(
   rating_id INT NOT NULL,
   article_id INT NOT NULL,
@@ -24,15 +25,18 @@ CREATE TABLE article_ratings(
   FOREIGN KEY (article_id)
     REFERENCES articles (article_id)
 )
+
 CREATE TABLE comments (
   comment_id serial PRIMARY KEY,
   c_text TEXT
 )
+
 CREATE TABLE ratings (
   rating_id serial PRIMARY KEY,
   stars SMALLINT,
   r_text TEXT
 )
+
 CREATE TABLE article_writers (
   uid INT NOT NULL,
   article_id INT NOT NULL,
@@ -42,6 +46,7 @@ CREATE TABLE article_writers (
   FOREIGN KEY (article_id)
     REFERENCES articles (article_id)
 )
+
 CREATE TABLE topic_articles(
   topic_id INT NOT NULL,
   article_id INT NOT NULL,
@@ -58,10 +63,12 @@ CREATE TABLE articles (
   status VARCHAR (10),
   publish_time TIMESTAMP
 )
+
 CREATE TABLE topics(
   topic_id serial PRIMARY KEY,
   name VARCHAR (50) NOT NULL
 )
+
 CREATE TABLE user_roles (
   uid INT NOT NULL,
   role_id INT NOT NULL,
@@ -71,10 +78,12 @@ CREATE TABLE user_roles (
   FOREIGN KEY (uid)
       REFERENCES users (uid)
 )
+
 CREATE TABLE roles (
   role_id serial PRIMARY KEY,
   role_name VARCHAR ( 50 ) UNIQUE NOT NULL
 )
+
 CREATE TABLE users (
   uid serial PRIMARY KEY,
   username VARCHAR ( 50 ) UNIQUE NOT NULL,
