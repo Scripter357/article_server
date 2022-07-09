@@ -1,95 +1,96 @@
 # Спецификации сервера
-Веб сервер: Uvicorn
-Фреймворк: FastAPI
-Зависимости: requests, os, psycopg2, datetime, flask, jose, passlib, pydantic, json
-БД: postgresql на localhost:5432
-Имя БД: server_db
+Веб сервер: Uvicorn;
+Фреймворк: FastAPI;
+Зависимости: requests, os, psycopg2, datetime, flask, jose, passlib, pydantic, json;
+БД: postgresql на localhost:5432;
+Имя БД: server_db;
 
 # Структура базы данных
-CREATE TABLE article_comment(
-  comment_id INT NOT NULL,
-  article_id INT NOT NULL,
-  PRIMARY KEY (comment_id, article_id),
-  FOREIGN KEY (comment_id)
-    REFERENCES comments (comment_id),
-  FOREIGN KEY (article_id)
-    REFERENCES articles (article_id)
-)
+CREATE TABLE article_comment(;
+  comment_id INT NOT NULL,;
+  article_id INT NOT NULL,;
+  PRIMARY KEY (comment_id, article_id),;
+  FOREIGN KEY (comment_id);
+    REFERENCES comments (comment_id),;
+  FOREIGN KEY (article_id);
+    REFERENCES articles (article_id);
+);
 
-CREATE TABLE article_ratings(
-  rating_id INT NOT NULL,
-  article_id INT NOT NULL,
-  PRIMARY KEY (rating_id, article_id),
-  FOREIGN KEY (rating_id)
-    REFERENCES ratings (rating_id),
-  FOREIGN KEY (article_id)
-    REFERENCES articles (article_id)
-)
+CREATE TABLE article_ratings(;
+  rating_id INT NOT NULL,;
+  article_id INT NOT NULL,;
+  PRIMARY KEY (rating_id, article_id),;
+  FOREIGN KEY (rating_id);
+    REFERENCES ratings (rating_id),;
+  FOREIGN KEY (article_id);
+    REFERENCES articles (article_id);
+);
 
-CREATE TABLE comments (
-  comment_id serial PRIMARY KEY,
-  c_text TEXT
-)
+CREATE TABLE comments (;
+  comment_id serial PRIMARY KEY,;
+  c_text TEXT;
+);
 
-CREATE TABLE ratings (
-  rating_id serial PRIMARY KEY,
-  stars SMALLINT,
-  r_text TEXT
-)
+CREATE TABLE ratings (;
+  rating_id serial PRIMARY KEY,;
+  stars SMALLINT,;
+  r_text TEXT;
+);
 
-CREATE TABLE article_writers (
-  uid INT NOT NULL,
-  article_id INT NOT NULL,
-  PRIMARY KEY (article_id, uid),
-  FOREIGN KEY (uid)
-    REFERENCES users (uid),
-  FOREIGN KEY (article_id)
-    REFERENCES articles (article_id)
-)
+CREATE TABLE article_writers (;
+  uid INT NOT NULL,;
+  article_id INT NOT NULL,;
+  PRIMARY KEY (article_id, uid),;
+  FOREIGN KEY (uid);
+    REFERENCES users (uid),;
+  FOREIGN KEY (article_id);
+    REFERENCES articles (article_id);
+);
 
-CREATE TABLE topic_articles(
-  topic_id INT NOT NULL,
-  article_id INT NOT NULL,
-  PRIMARY KEY (topic_id, article_id),
-  FOREIGN KEY (topic_id)
-    REFERENCES topics (topic_id),
-  FOREIGN KEY (article_id)
-    REFERENCES articles (article_id)
-)
-CREATE TABLE articles (
-  article_id serial PRIMARY KEY,
-  title VARCHAR (100),
-  text TEXT,
-  status VARCHAR (10),
-  publish_time TIMESTAMP
-)
+CREATE TABLE topic_articles(;
+  topic_id INT NOT NULL,;
+  article_id INT NOT NULL,;
+  PRIMARY KEY (topic_id, article_id),;
+  FOREIGN KEY (topic_id);
+    REFERENCES topics (topic_id),;
+  FOREIGN KEY (article_id);
+    REFERENCES articles (article_id);
+);
 
-CREATE TABLE topics(
-  topic_id serial PRIMARY KEY,
-  name VARCHAR (50) NOT NULL
-)
+CREATE TABLE articles (;
+  article_id serial PRIMARY KEY,;
+  title VARCHAR (100),;
+  text TEXT,;
+  status VARCHAR (10),;
+  publish_time TIMESTAMP;
+);
 
-CREATE TABLE user_roles (
-  uid INT NOT NULL,
-  role_id INT NOT NULL,
-  PRIMARY KEY (uid, role_id),
-  FOREIGN KEY (role_id)
-      REFERENCES roles (role_id),
-  FOREIGN KEY (uid)
-      REFERENCES users (uid)
-)
+CREATE TABLE topics(;
+  topic_id serial PRIMARY KEY,;
+  name VARCHAR (50) NOT NULL;
+);
 
-CREATE TABLE roles (
-  role_id serial PRIMARY KEY,
-  role_name VARCHAR ( 50 ) UNIQUE NOT NULL
-)
+CREATE TABLE user_roles (;
+  uid INT NOT NULL,;
+  role_id INT NOT NULL,;
+  PRIMARY KEY (uid, role_id),;
+  FOREIGN KEY (role_id);
+      REFERENCES roles (role_id),;
+  FOREIGN KEY (uid);
+      REFERENCES users (uid);
+);
 
-CREATE TABLE users (
-  uid serial PRIMARY KEY,
-  username VARCHAR ( 50 ) UNIQUE NOT NULL,
-  password VARCHAR ( 50 ) NOT NULL,
-  ban BOOLEAN NOT NULL
-)
+CREATE TABLE roles (;
+  role_id serial PRIMARY KEY,;
+  role_name VARCHAR ( 50 ) UNIQUE NOT NULL;
+);
+
+CREATE TABLE users (;
+  uid serial PRIMARY KEY,;
+  username VARCHAR ( 50 ) UNIQUE NOT NULL,;
+  password VARCHAR ( 50 ) NOT NULL,;
+  ban BOOLEAN NOT NULL;
+);
 
 # API
 POST
