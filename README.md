@@ -212,10 +212,15 @@ GET
 /topic/list
 List Topics
 
-POST
-/article/search
-Search Articles
-
 GET
 /whoami
 Read Users Me
+
+POST
+/article/search
+Search Articles  
+Possible sortby values:
+	"title"
+	"text"
+	"publish_time"
+	"rating"
